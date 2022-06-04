@@ -1,11 +1,12 @@
-from app import app
-import dash
 import dash_bootstrap_components as dbc
 from dash import Input, Output, dcc, html
+
+import USHeatMap
+import genderClassifier
+import nameCloud
 import nameTrend
 import top5Name
-import USHeatMap
-
+from app import app
 
 # the style arguments for the sidebar. We use position:fixed and a fixed width
 SIDEBAR_STYLE = {
@@ -34,9 +35,11 @@ sidebar = html.Div(
         html.Hr(),
         dbc.Nav(
             [
-                dbc.NavLink("Name Trend", href="/", active="exact"),
-                dbc.NavLink("Top 5 Names", href="/top-5", active="exact"),
+                dbc.NavLink("Top Names", href="/", active="exact"),
+                dbc.NavLink("US Name Cloud", href="/name-cloud", active="exact"),
+                dbc.NavLink("Name Trend", href="/name-trend", active="exact"),
                 dbc.NavLink("US Heat Map", href="/heat-map", active="exact"),
+                dbc.NavLink("Gender Classifier", href="/gender-classifier", active="exact")
             ],
             vertical=True,
             pills=True,
@@ -53,11 +56,15 @@ app.layout = html.Div([dcc.Location(id="url"), sidebar, content])
 @app.callback(Output("page-content", "children"), [Input("url", "pathname")])
 def render_page_content(pathname):
     if pathname == "/":
-        return nameTrend.layout
-    elif pathname == "/top-5":
         return top5Name.layout
+    elif pathname == "/name-cloud":
+        return nameCloud.layout
+    elif pathname == "/name-trend":
+        return nameTrend.layout
     elif pathname == "/heat-map":
         return USHeatMap.layout
+    elif pathname == "/gender-classifier":
+        return genderClassifier.layout
     # If the user tries to reach a different page, return a 404 message
     return dbc.Jumbotron(
         [

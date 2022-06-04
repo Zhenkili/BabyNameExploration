@@ -1,65 +1,30 @@
-import pandas as pd
-import numpy as np
-import os
-import sys
-import plotly.graph_objects as go
-import plotly.express as px
 import dash
-from dash import Dash
-import dash_html_components as html
-import dash_core_components as dcc
-from plotly.subplots import make_subplots
-import plotly.offline as py
-from plotly.offline import init_notebook_mode
-#init_notebook_mode(connected=True)
-from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
-from app import app, df
+import dash_core_components as dcc
+import dash_html_components as html
+import numpy as np
+# init_notebook_mode(connected=True)
+from dash.dependencies import Input, Output
 
+from app import app, df
 
 layout = html.Div([
     dcc.Graph(id='us-heat-map-graph'),
     html.Div([
         html.Div([
-            'Year  ',
-            dcc.Input(id='us-heat-map-input-year', type='number')
-        ],
-            style={
-
-                   # 'display': 'inline-block',
-                   # 'position': 'absolute',
-                   # 'top': '60px',
-                   # 'left': '470px',
-            }
-        ),
-
-        html.Div(
-            id='us-heat-map-the-alert1',
-            children=[],
-            style={
-                   'position': 'absolute',
-                   # 'height': '50px',
-                   'top': '0px',
-                   'left': '200px',
-                   }
-        ),
-
-
-
-        html.Div([
             'Name ',
-            dcc.Input(id='us-heat-map-input-name', type='text')
+            dcc.Input(id='us-heat-map-input-name', type='text', value='Lily')
         ],
-        style={
-               # 'display': 'inline-block',
-               # 'position':'absolute',
-               'padding': '0px',
-               'margin': '4px 0 4px',
-               # 'margin': '15px auto',
+            style={
+                # 'display': 'inline-block',
+                # 'position':'absolute',
+                'padding': '2px',
+                'margin': '4px 0 4px',
+                # 'margin': '15px auto',
                 # 'top': '12px',
                 # 'left': '470px'
 
-               }
+            }
         ),
 
         html.Div([
@@ -69,12 +34,38 @@ layout = html.Div([
                     {'label': 'Female', 'value': 'F'},
                     {'label': 'Male', 'value': 'M'},
                 ],
-                value='M'
+                value='F',
+                labelStyle={"padding": "2px"},
+                inputStyle={"margin-right": "1px"}
             )
         ],
-            style={
-                # 'display': 'inline-block',
+            style={'width': '500px',
+                   # 'display': 'inline-block',
+                   'margin': '0 auto',
+                   }
+        ),
 
+        html.Div([
+            'Year  ',
+            dcc.Input(id='us-heat-map-input-year', type='number', value=2020)
+        ],
+            style={
+
+                # 'display': 'inline-block',
+                # 'position': 'absolute',
+                # 'top': '60px',
+                # 'left': '470px',
+            }
+        ),
+
+        html.Div(
+            id='us-heat-map-the-alert1',
+            children=[],
+            style={
+                'position': 'absolute',
+                # 'height': '50px',
+                'top': '0px',
+                'left': '200px',
             }
         ),
 
@@ -90,17 +81,16 @@ layout = html.Div([
                    }
         ),
     ],
-    style={'position':'relative',
-           'width':'500px',
-           'margin':'0 auto'
-           }
+        style={'position': 'relative',
+               'width': '500px',
+               'margin': '0 auto'
+               }
     ),
 
 ])
 
-alert1 = dbc.Alert("Year between 1910-2020!", color='danger', dismissable=False, duration=15000)
-alert2 = dbc.Alert("Invaild Name!", color='danger', dismissable=False, duration=15000)
-
+alert1 = dbc.Alert("Year between 1910-2020!", color='danger', dismissable=False, duration=1500)
+alert2 = dbc.Alert("Invaild Name!", color='danger', dismissable=False, duration=1500)
 
 
 @app.callback(
@@ -111,27 +101,26 @@ alert2 = dbc.Alert("Invaild Name!", color='danger', dismissable=False, duration=
     Input('us-heat-map-input-sex', 'value'),
     Input('us-heat-map-input-year', 'value')
 )
-
-
-def update_figure(name,sex, year):
+def update_figure(name, sex, year):
+    name = name.capitalize()
     data = [dict(type='choropleth',
-                     locationmode='USA-states',
-                     autocolorscale=False,
-                     marker=dict(
-                         line=dict(color='rgb(255,255,255)', width=1)),
-                     colorbar=dict(autotick=True, tickprefix='', title='Rank'),
-                     reversescale=True,
-                     )
-                ]
+                 locationmode='USA-states',
+                 autocolorscale=False,
+                 marker=dict(
+                     line=dict(color='rgb(255,255,255)', width=1)),
+                 colorbar=dict(autotick=True, tickprefix='', title='Rank'),
+                 reversescale=True,
+                 )
+            ]
     layout = dict(
-            geo=dict(
+        geo=dict(
             scope='usa',
             projection=dict(type='albers usa'),
             showlakes=True,
             lakecolor='rgb(255, 255, 255)'),
     )
     fig = dict(data=data, layout=layout)
-    #your validation here
+    # your validation here
     if year not in df.year.values and year != None:
         return fig, alert1, dash.no_update
     elif name not in df.name.values and name != None:
@@ -183,4 +172,3 @@ def update_figure(name,sex, year):
 if __name__ == '__main__':
     app.layout = layout
     app.run_server()
-

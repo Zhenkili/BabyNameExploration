@@ -131,4 +131,5 @@ dmypy.json
 .DS_Store
 node_modules/
 client/baby-names-state.csv
+client/NationalNames.csv
 .idea/
