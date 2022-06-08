@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to ece229 group4 project’s documentation! &mdash; ece229_group4_project 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> ece229_group4_project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to ece229 group4 project’s documentation!</a></li>
+<li><a class="reference internal" href="#package-dependencies">Package Dependencies</a></li>
+<li><a class="reference internal" href="#file-structure">File Structure</a></li>
+<li><a class="reference internal" href="#start-the-project">Start the project</a></li>
+<li><a class="reference internal" href="#run-testing">Run Testing</a></li>
+<li><a class="reference internal" href="#module-EntryHomepage">EntryHomepage</a></li>
+<li><a class="reference internal" href="#module-client.app">Client Dashboard</a></li>
+<li><a class="reference internal" href="#module-test.test_callback">Test</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">ece229_group4_project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Welcome to ece229 group4 project’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-ece229-group4-project-s-documentation">
+<h1>Welcome to ece229 group4 project’s documentation!<a class="headerlink" href="#welcome-to-ece229-group4-project-s-documentation" title="Permalink to this headline"></a></h1>
+<p>This project is a <strong>US NEwborn Analysis System</strong>
+The purpose is helping users to search the trend of thier name  of each year and analyse the name by year, region and gender.</p>
+</section>
+<section id="package-dependencies">
+<h1>Package Dependencies<a class="headerlink" href="#package-dependencies" title="Permalink to this headline"></a></h1>
+<p>The project depends on numpy, dash, dash-bootstrap-components</p>
+<p><strong>For installing the Environment Config</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">numpy</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">dash</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">dash</span><span class="o">-</span><span class="n">bootstrap</span><span class="o">-</span><span class="n">components</span>
+</pre></div>
+</div>
+</section>
+<section id="file-structure">
+<h1>File Structure<a class="headerlink" href="#file-structure" title="Permalink to this headline"></a></h1>
+<p><strong>Structure of the project</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">client</span>
+   <span class="o">-</span> <span class="n">baby</span><span class="o">-</span><span class="n">names</span><span class="o">-</span><span class="n">state</span><span class="o">.</span><span class="n">csv</span> <span class="n">_</span><span class="p">(</span><span class="n">should</span> <span class="n">be</span> <span class="n">added</span> <span class="n">manually</span><span class="p">)</span><span class="n">_</span>
+   <span class="o">-</span> <span class="n">app</span><span class="o">.</span><span class="n">py</span>
+   <span class="o">-</span> <span class="n">EntryHomepage</span><span class="o">.</span><span class="n">py</span>
+   <span class="o">-</span> <span class="n">nameTrend</span>
+   <span class="o">-</span> <span class="n">top5Name</span><span class="p">,</span><span class="n">py</span>
+   <span class="o">-</span> <span class="n">USHeatMap</span><span class="o">.</span><span class="n">py</span>
+<span class="o">-</span> <span class="n">doc</span>
+</pre></div>
+</div>
+</section>
+<section id="start-the-project">
+<h1>Start the project<a class="headerlink" href="#start-the-project" title="Permalink to this headline"></a></h1>
+<p><strong>For Entering the Homepage Dashboard:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">client</span><span class="o">/</span><span class="n">EntryHomepage</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>The output will be displayed in port <strong>8050</strong></p>
+</section>
+<section id="run-testing">
+<h1>Run Testing<a class="headerlink" href="#run-testing" title="Permalink to this headline"></a></h1>
+<p><strong>For Testing the Environment:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span>
+</pre></div>
+</div>
+<p><strong>Run the Test:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="o">-</span><span class="n">v</span>
+</pre></div>
+</div>
+</section>
+<section id="module-EntryHomepage">
+<span id="entryhomepage"></span><h1>EntryHomepage<a class="headerlink" href="#module-EntryHomepage" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="EntryHomepage.page_router">
+<span class="sig-prename descclassname"><span class="pre">EntryHomepage.</span></span><span class="sig-name descname"><span class="pre">page_router</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EntryHomepage.html#page_router"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EntryHomepage.page_router" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="EntryHomepage.render_page_content">
+<span class="sig-prename descclassname"><span class="pre">EntryHomepage.</span></span><span class="sig-name descname"><span class="pre">render_page_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/EntryHomepage.html#render_page_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#EntryHomepage.render_page_content" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-client.app">
+<span id="client-dashboard"></span><h1>Client Dashboard<a class="headerlink" href="#module-client.app" title="Permalink to this headline"></a></h1>
+<span class="target" id="module-client.genderClassifier"></span><dl class="py function">
+<dt class="sig sig-object py" id="client.genderClassifier.update_figure">
+<span class="sig-prename descclassname"><span class="pre">client.genderClassifier.</span></span><span class="sig-name descname"><span class="pre">update_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/client/genderClassifier.html#update_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#client.genderClassifier.update_figure" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-client.model"></span><dl class="py function">
+<dt class="sig sig-object py" id="client.model.getGender">
+<span class="sig-prename descclassname"><span class="pre">client.model.</span></span><span class="sig-name descname"><span class="pre">getGender</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/client/model.html#getGender"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#client.model.getGender" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="client.model.trainModel">
+<span class="sig-prename descclassname"><span class="pre">client.model.</span></span><span class="sig-name descname"><span class="pre">trainModel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/client/model.html#trainModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#client.model.trainModel" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-client.top5Name"></span><dl class="py function">
+<dt class="sig sig-object py" id="client.top5Name.update_figure">
+<span class="sig-prename descclassname"><span class="pre">client.top5Name.</span></span><span class="sig-name descname"><span class="pre">update_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startYear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endYear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/client/top5Name.html#update_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#client.top5Name.update_figure" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-client.nameTrend"></span><dl class="py function">
+<dt class="sig sig-object py" id="client.nameTrend.update_figure">
+<span class="sig-prename descclassname"><span class="pre">client.nameTrend.</span></span><span class="sig-name descname"><span class="pre">update_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/client/nameTrend.html#update_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#client.nameTrend.update_figure" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-client.nameCloud"></span><dl class="py function">
+<dt class="sig sig-object py" id="client.nameCloud.get_most_named_data">
+<span class="sig-prename descclassname"><span class="pre">client.nameCloud.</span></span><span class="sig-name descname"><span class="pre">get_most_named_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">syear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eyear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/client/nameCloud.html#get_most_named_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#client.nameCloud.get_most_named_data" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="client.nameCloud.get_name_cloud_image">
+<span class="sig-prename descclassname"><span class="pre">client.nameCloud.</span></span><span class="sig-name descname"><span class="pre">get_name_cloud_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/client/nameCloud.html#get_name_cloud_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#client.nameCloud.get_name_cloud_image" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="client.nameCloud.update_figure">
+<span class="sig-prename descclassname"><span class="pre">client.nameCloud.</span></span><span class="sig-name descname"><span class="pre">update_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startYear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endYear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">th</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/client/nameCloud.html#update_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#client.nameCloud.update_figure" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-client.USHeatMap"></span><dl class="py function">
+<dt class="sig sig-object py" id="client.USHeatMap.update_figure">
+<span class="sig-prename descclassname"><span class="pre">client.USHeatMap.</span></span><span class="sig-name descname"><span class="pre">update_figure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sex</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/client/USHeatMap.html#update_figure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#client.USHeatMap.update_figure" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-test.test_callback">
+<span id="test"></span><h1>Test<a class="headerlink" href="#module-test.test_callback" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_callback.test_genderClassifier">
+<span class="sig-prename descclassname"><span class="pre">test.test_callback.</span></span><span class="sig-name descname"><span class="pre">test_genderClassifier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_callback.html#test_genderClassifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_callback.test_genderClassifier" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_callback.test_heatmap">
+<span class="sig-prename descclassname"><span class="pre">test.test_callback.</span></span><span class="sig-name descname"><span class="pre">test_heatmap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_callback.html#test_heatmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_callback.test_heatmap" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_callback.test_nameCloud">
+<span class="sig-prename descclassname"><span class="pre">test.test_callback.</span></span><span class="sig-name descname"><span class="pre">test_nameCloud</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_callback.html#test_nameCloud"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_callback.test_nameCloud" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_callback.test_nameCloud_most_named">
+<span class="sig-prename descclassname"><span class="pre">test.test_callback.</span></span><span class="sig-name descname"><span class="pre">test_nameCloud_most_named</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_callback.html#test_nameCloud_most_named"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_callback.test_nameCloud_most_named" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_callback.test_nameTrend">
+<span class="sig-prename descclassname"><span class="pre">test.test_callback.</span></span><span class="sig-name descname"><span class="pre">test_nameTrend</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_callback.html#test_nameTrend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_callback.test_nameTrend" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_callback.test_topName">
+<span class="sig-prename descclassname"><span class="pre">test.test_callback.</span></span><span class="sig-name descname"><span class="pre">test_topName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_callback.html#test_topName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_callback.test_topName" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-test.test_ui"></span><dl class="py function">
+<dt class="sig sig-object py" id="test.test_ui.test_app_layout">
+<span class="sig-prename descclassname"><span class="pre">test.test_ui.</span></span><span class="sig-name descname"><span class="pre">test_app_layout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_ui.html#test_app_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_ui.test_app_layout" title="Permalink to this definition"></a></dt>
+<dd><p>test if layout has been correctly bind to app</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_ui.test_content">
+<span class="sig-prename descclassname"><span class="pre">test.test_ui.</span></span><span class="sig-name descname"><span class="pre">test_content</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_ui.html#test_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_ui.test_content" title="Permalink to this definition"></a></dt>
+<dd><p>test if content layout is correctly set</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_ui.test_page_router_existed">
+<span class="sig-prename descclassname"><span class="pre">test.test_ui.</span></span><span class="sig-name descname"><span class="pre">test_page_router_existed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_ui.html#test_page_router_existed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_ui.test_page_router_existed" title="Permalink to this definition"></a></dt>
+<dd><p>test router successfully return code (existed page)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_ui.test_page_router_non_existed">
+<span class="sig-prename descclassname"><span class="pre">test.test_ui.</span></span><span class="sig-name descname"><span class="pre">test_page_router_non_existed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_ui.html#test_page_router_non_existed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_ui.test_page_router_non_existed" title="Permalink to this definition"></a></dt>
+<dd><p>test router successfully return code (non-existed page)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_ui.test_render_page_content">
+<span class="sig-prename descclassname"><span class="pre">test.test_ui.</span></span><span class="sig-name descname"><span class="pre">test_render_page_content</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_ui.html#test_render_page_content"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_ui.test_render_page_content" title="Permalink to this definition"></a></dt>
+<dd><p>test if renderer successfully render the page</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="test.test_ui.test_sidebar">
+<span class="sig-prename descclassname"><span class="pre">test.test_ui.</span></span><span class="sig-name descname"><span class="pre">test_sidebar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/test/test_ui.html#test_sidebar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#test.test_ui.test_sidebar" title="Permalink to this definition"></a></dt>
+<dd><p>test if sidebar layout is correctly set</p>
+</dd></dl>
+
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, group4_members.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

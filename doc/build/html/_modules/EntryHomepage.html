@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EntryHomepage &mdash; ece229_group4_project 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> ece229_group4_project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ece229_group4_project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Module code</a> &raquo;</li>
+      <li>EntryHomepage</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for EntryHomepage</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">dash_bootstrap_components</span> <span class="k">as</span> <span class="nn">dbc</span>
+<span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span><span class="p">,</span> <span class="n">dcc</span><span class="p">,</span> <span class="n">html</span>
+
+<span class="kn">import</span> <span class="nn">client.USHeatMap</span> <span class="k">as</span> <span class="nn">USHeatMap</span>
+<span class="kn">import</span> <span class="nn">client.genderClassifier</span> <span class="k">as</span> <span class="nn">genderClassifier</span>
+<span class="kn">import</span> <span class="nn">client.nameCloud</span> <span class="k">as</span> <span class="nn">nameCloud</span>
+<span class="kn">import</span> <span class="nn">client.nameTrend</span> <span class="k">as</span> <span class="nn">nameTrend</span>
+<span class="kn">import</span> <span class="nn">client.top5Name</span> <span class="k">as</span> <span class="nn">top5Name</span>
+<span class="kn">from</span> <span class="nn">client.app</span> <span class="kn">import</span> <span class="n">app</span>
+
+<span class="c1"># the style arguments for the sidebar. We use position:fixed and a fixed width</span>
+<span class="n">SIDEBAR_STYLE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="s2">&quot;fixed&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;top&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;bottom&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="s2">&quot;16rem&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;2rem 1rem&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;background-color&quot;</span><span class="p">:</span> <span class="s2">&quot;#f8f9fa&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># the styles for the main content position it to the right of the sidebar and</span>
+<span class="c1"># add some padding.</span>
+<span class="n">CONTENT_STYLE</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;margin-left&quot;</span><span class="p">:</span> <span class="s2">&quot;18rem&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;margin-right&quot;</span><span class="p">:</span> <span class="s2">&quot;2rem&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;2rem 1rem&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">sidebar</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">P</span><span class="p">(</span>
+            <span class="s2">&quot;US Newborn Naming Analysis&quot;</span><span class="p">,</span> <span class="n">className</span><span class="o">=</span><span class="s2">&quot;lead&quot;</span>
+        <span class="p">),</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Hr</span><span class="p">(),</span>
+        <span class="n">dbc</span><span class="o">.</span><span class="n">Nav</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">dbc</span><span class="o">.</span><span class="n">NavLink</span><span class="p">(</span><span class="s2">&quot;Top Names&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;link-top5&quot;</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span><span class="p">),</span>
+                <span class="n">dbc</span><span class="o">.</span><span class="n">NavLink</span><span class="p">(</span><span class="s2">&quot;US Name Cloud&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;link-name-cloud&quot;</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/name-cloud&quot;</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span><span class="p">),</span>
+                <span class="n">dbc</span><span class="o">.</span><span class="n">NavLink</span><span class="p">(</span><span class="s2">&quot;Name Trend&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;link-name-trend&quot;</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/name-trend&quot;</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span><span class="p">),</span>
+                <span class="n">dbc</span><span class="o">.</span><span class="n">NavLink</span><span class="p">(</span><span class="s2">&quot;US Heat Map&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;link-heat-map&quot;</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/heat-map&quot;</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span><span class="p">),</span>
+                <span class="n">dbc</span><span class="o">.</span><span class="n">NavLink</span><span class="p">(</span><span class="s2">&quot;Gender Classifier&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;link-gender-classifier&quot;</span><span class="p">,</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;/gender-classifier&quot;</span><span class="p">,</span> <span class="n">active</span><span class="o">=</span><span class="s2">&quot;exact&quot;</span><span class="p">)</span>
+            <span class="p">],</span>
+            <span class="n">vertical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">pills</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">SIDEBAR_STYLE</span><span class="p">,</span>
+    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;content-sidebar&quot;</span>
+<span class="p">)</span>
+
+<span class="n">content</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;page-content&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">CONTENT_STYLE</span><span class="p">)</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span><span class="n">dcc</span><span class="o">.</span><span class="n">Location</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s2">&quot;url&quot;</span><span class="p">),</span> <span class="n">sidebar</span><span class="p">,</span> <span class="n">content</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="render_page_content"><a class="viewcode-back" href="../index.html#EntryHomepage.render_page_content">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span><span class="n">Output</span><span class="p">(</span><span class="s2">&quot;page-content&quot;</span><span class="p">,</span> <span class="s2">&quot;children&quot;</span><span class="p">),</span> <span class="p">[</span><span class="n">Input</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="s2">&quot;pathname&quot;</span><span class="p">)])</span>
+<span class="k">def</span> <span class="nf">render_page_content</span><span class="p">(</span><span class="n">pathname</span><span class="p">):</span>
+    <span class="n">layout</span><span class="p">,</span> <span class="n">code</span> <span class="o">=</span> <span class="n">page_router</span><span class="p">(</span><span class="n">pathname</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">layout</span></div>
+
+
+<div class="viewcode-block" id="page_router"><a class="viewcode-back" href="../index.html#EntryHomepage.page_router">[docs]</a><span class="k">def</span> <span class="nf">page_router</span><span class="p">(</span><span class="n">pathname</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">pathname</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">top5Name</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="mi">200</span>
+    <span class="k">elif</span> <span class="n">pathname</span> <span class="o">==</span> <span class="s2">&quot;/name-cloud&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">nameCloud</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="mi">200</span>
+    <span class="k">elif</span> <span class="n">pathname</span> <span class="o">==</span> <span class="s2">&quot;/name-trend&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">nameTrend</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="mi">200</span>
+    <span class="k">elif</span> <span class="n">pathname</span> <span class="o">==</span> <span class="s2">&quot;/heat-map&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">USHeatMap</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="mi">200</span>
+    <span class="k">elif</span> <span class="n">pathname</span> <span class="o">==</span> <span class="s2">&quot;/gender-classifier&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">genderClassifier</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="mi">200</span>
+    <span class="c1"># If the user tries to reach a different page, return a 404 message</span>
+    <span class="k">return</span> <span class="n">top5Name</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="mi">404</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8050</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, group4_members.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

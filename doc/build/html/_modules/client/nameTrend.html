@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>client.nameTrend &mdash; ece229_group4_project 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> ece229_group4_project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ece229_group4_project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>client.nameTrend</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for client.nameTrend</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">dash</span>
+<span class="kn">import</span> <span class="nn">dash_bootstrap_components</span> <span class="k">as</span> <span class="nn">dbc</span>
+<span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">dcc</span>
+<span class="kn">from</span> <span class="nn">dash</span> <span class="kn">import</span> <span class="n">html</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="kn">from</span> <span class="nn">dash.dependencies</span> <span class="kn">import</span> <span class="n">Input</span><span class="p">,</span> <span class="n">Output</span>
+
+<span class="kn">from</span> <span class="nn">client.app</span> <span class="kn">import</span> <span class="n">app</span><span class="p">,</span> <span class="n">df</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+
+    <span class="n">dcc</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;name-trend-graph&#39;</span><span class="p">),</span>
+    <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+            <span class="s2">&quot;Name: &quot;</span><span class="p">,</span>
+            <span class="n">dcc</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;name-trend-input-name&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;James&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+        <span class="p">],</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+                <span class="c1"># &#39;display&#39;: &#39;inline-block&#39;,</span>
+                <span class="c1"># &#39;position&#39;:&#39;absolute&#39;,</span>
+                <span class="s1">&#39;padding&#39;</span><span class="p">:</span> <span class="s1">&#39;2px&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;margin&#39;</span><span class="p">:</span> <span class="s1">&#39;4px 0 4px&#39;</span><span class="p">,</span>
+                <span class="c1"># &#39;margin&#39;: &#39;15px auto&#39;,</span>
+                <span class="c1"># &#39;top&#39;: &#39;12px&#39;,</span>
+                <span class="c1"># &#39;left&#39;: &#39;470px&#39;</span>
+
+            <span class="p">}</span>
+        <span class="p">),</span>
+
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+            <span class="n">dcc</span><span class="o">.</span><span class="n">RadioItems</span><span class="p">(</span>
+                <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;name-trend-input-sex&#39;</span><span class="p">,</span>
+                <span class="n">options</span><span class="o">=</span><span class="p">[</span>
+                    <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Female&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;F&#39;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="s1">&#39;Male&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="s1">&#39;M&#39;</span><span class="p">},</span>
+                <span class="p">],</span>
+                <span class="n">value</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">,</span>
+                <span class="n">labelStyle</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;padding&quot;</span><span class="p">:</span> <span class="s2">&quot;2px&quot;</span><span class="p">},</span>
+                <span class="n">inputStyle</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;margin-right&quot;</span><span class="p">:</span> <span class="s2">&quot;1px&quot;</span><span class="p">}</span>
+            <span class="p">)</span>
+        <span class="p">],</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;500px&#39;</span><span class="p">,</span>
+                   <span class="c1"># &#39;display&#39;: &#39;inline-block&#39;,</span>
+                   <span class="s1">&#39;margin&#39;</span><span class="p">:</span> <span class="s1">&#39;0 auto&#39;</span><span class="p">,</span>
+                   <span class="p">}</span>
+        <span class="p">),</span>
+
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">([</span>
+            <span class="n">dcc</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span>
+                <span class="n">options</span><span class="o">=</span><span class="p">[</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Alabama&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;AL&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Alaska&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;AK&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Arizona&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;AZ&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Arkansas&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;AR&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;California&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;CA&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Colorado&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;CO&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Connecticut&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;CT&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Delaware&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;DE&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;District Of Columbia&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;DC&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Florida&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;FL&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Georgia&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;GA&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Hawaii&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;HI&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Idaho&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;ID&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Illinois&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;IL&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Indiana&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;IN&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Iowa&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;IA&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Kansas&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;KS&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Kentucky&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;KY&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Louisiana&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;LA&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Maine&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;ME&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Maryland&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;MD&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Massachusetts&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;MA&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Michigan&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;MI&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Minnesota&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;MN&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Mississippi&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;MS&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Missouri&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;MO&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Montana&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;MT&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Nebraska&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;NE&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Nevada&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;NV&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;New Hampshire&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;NH&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;New Jersey&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;NJ&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;New Mexico&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;NM&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;New York&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;NY&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;North Carolina&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;NC&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;North Dakota&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;ND&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Ohio&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;OH&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Oklahoma&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Oregon&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;OR&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Pennsylvania&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;PA&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Rhode Island&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;RI&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;South Carolina&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;SC&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;South Dakota&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;SD&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Tennessee&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;TN&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Texas&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;TX&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Utah&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;UT&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Vermont&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;VT&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Virginia&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;VA&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Washington&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;WA&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;West Virginia&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;WV&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Wisconsin&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;WI&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Wyoming&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;WY&quot;</span><span class="p">}</span>
+                <span class="p">],</span>
+                <span class="n">placeholder</span><span class="o">=</span><span class="s2">&quot;Select a state&quot;</span><span class="p">,</span>
+                <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;name-trend-input-state&#39;</span>
+            <span class="p">)</span>
+        <span class="p">],</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;500px&#39;</span><span class="p">,</span>
+                   <span class="c1"># &#39;display&#39;: &#39;inline-block&#39;,</span>
+                   <span class="s1">&#39;padding&#39;</span><span class="p">:</span> <span class="s1">&#39;2px&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;margin&#39;</span><span class="p">:</span> <span class="s1">&#39;0 auto&#39;</span><span class="p">,</span>
+                   <span class="c1"># &#39;position&#39;: &#39;absolute&#39;,</span>
+                   <span class="c1"># &#39;left&#39;: &#39;310px&#39;,</span>
+                   <span class="p">}</span>
+        <span class="p">),</span>
+
+        <span class="n">html</span><span class="o">.</span><span class="n">Div</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;name-trend-the-alert&#39;</span><span class="p">,</span>
+            <span class="n">children</span><span class="o">=</span><span class="p">[],</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;display&#39;</span><span class="p">:</span> <span class="s1">&#39;inline-block&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;position&#39;</span><span class="p">:</span> <span class="s1">&#39;absolute&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="s1">&#39;50px&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;left&#39;</span><span class="p">:</span> <span class="s1">&#39;380px&#39;</span>
+                   <span class="p">}</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">{</span>
+            <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="s1">&#39;500px&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="s1">&#39;30px&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;margin&#39;</span><span class="p">:</span> <span class="s1">&#39;0 auto&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;position&#39;</span><span class="p">:</span> <span class="s1">&#39;relative&#39;</span>
+        <span class="p">}),</span>
+
+
+
+<span class="p">])</span>
+
+<span class="n">alert</span> <span class="o">=</span> <span class="n">dbc</span><span class="o">.</span><span class="n">Alert</span><span class="p">(</span><span class="s2">&quot;Invalid Name!&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;danger&quot;</span><span class="p">,</span> <span class="n">dismissable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">1500</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="update_figure"><a class="viewcode-back" href="../../index.html#client.nameTrend.update_figure">[docs]</a><span class="nd">@app</span><span class="o">.</span><span class="n">callback</span><span class="p">(</span>
+    <span class="n">Output</span><span class="p">(</span><span class="s1">&#39;name-trend-graph&#39;</span><span class="p">,</span> <span class="s1">&#39;figure&#39;</span><span class="p">),</span>
+    <span class="n">Output</span><span class="p">(</span><span class="s1">&#39;name-trend-the-alert&#39;</span><span class="p">,</span> <span class="s1">&#39;children&#39;</span><span class="p">),</span>
+    <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;name-trend-input-name&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">),</span>
+    <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;name-trend-input-sex&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">),</span>
+    <span class="n">Input</span><span class="p">(</span><span class="s1">&#39;name-trend-input-state&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">update_figure</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sex</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">values</span> <span class="ow">and</span> <span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>  <span class="c1"># if illegal, make graph blank and show alert</span>
+        <span class="k">return</span> <span class="p">[],</span> <span class="n">alert</span>
+    <span class="n">new_df</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">new_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;state_abb&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">state</span><span class="p">)]</span>
+
+    <span class="n">name_df</span> <span class="o">=</span> <span class="n">new_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">new_df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sex_name_df</span> <span class="o">=</span> <span class="n">name_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">name_df</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sex</span><span class="p">]</span>
+    <span class="n">sex_df</span> <span class="o">=</span> <span class="n">new_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">new_df</span><span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">sex</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="n">all_years</span> <span class="o">=</span> <span class="n">new_df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">years_used</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rank_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">all_years</span><span class="p">:</span>
+        <span class="n">year_f</span> <span class="o">=</span> <span class="n">sex_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">year</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">years_used</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">year</span><span class="p">)</span>
+            <span class="n">rank</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">year_f</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">year_f</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">rank_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rank_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rank</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+    <span class="n">year_sex_name_df</span> <span class="o">=</span> <span class="n">sex_name_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">year_sex_name_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">year_sex_name_df</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Total Number&#39;</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">years_used</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">rank_list</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Popularity&#39;</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Trend of &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot; Over Time&quot;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+                             <span class="s1">&#39;xanchor&#39;</span><span class="p">:</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;font&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">}},</span> <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Year&quot;</span><span class="p">,</span>
+                      <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Value (log scale)&quot;</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">dash</span><span class="o">.</span><span class="n">no_update</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">layout</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run_server</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, group4_members.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
