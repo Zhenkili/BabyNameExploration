@@ -119,7 +119,7 @@ $ pytest -v
 <a name="doc"></a>
 
 ## Documentation
-Our project used Sphinx to create a documentation static website as an ongoing part of development. Open **./docs/_build/html/index.html** file in web browser to see the docs.
+Our project used Sphinx to create a documentation static website as an ongoing part of development. Open **./doc/build/html/index.html** file in web browser to see the docs.
 
 or visit [doc](./doc/build/html/index.html)
 
