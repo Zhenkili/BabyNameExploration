@@ -63,7 +63,7 @@ git clone https://github.com/js-konda/ece229.git
 pip install -r requirements.txt
 </pre>
 
-3. Download the [dataset](https://www.kaggle.com/datasets/ironicninja/baby-names) and place unzipped dataset into the client directory
+3. Download the [dataset](https://github.com/YihengYe/ECE229datatrue/blob/main/baby-names-state.csv) and place unzipped dataset into the client directory
 
 3. For Entering the Homepage Dashboard:
 <pre>
@@ -99,12 +99,13 @@ gender-neutral names, etc.
 
 ## About Dataset
 
-This [dataset](https://www.kaggle.com/datasets/ironicninja/baby-names) consists of American newborn babies' names statistics from 1910 to 2021.
+This [dataset](https://github.com/YihengYe/ECE229datatrue/blob/main/baby-names-state.csv) consists of American newborn babies' names statistics from 1910 to 2021.
 It contains important information for those names including gender, state and number of
 those names in a given area during a certain year.
+
 <a name="TestEnv"></a>
 
-### Testing
+## Testing
 1. Test Environment
 <pre>
 $ pip install pytest
