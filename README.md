@@ -3,7 +3,9 @@ Project Repo for Computational Data Analysis Course
 
 This project is a US NEwborn Analysis System. The purpose is helping users to search the trend of thier name of each year and analyse the name by year, region and gender.
 
-visit the project website http://34.212.234.66:8050
+visit the project website http://34.212.234.66:8050 
+
+(avoid using UCSD-GUEST to visit the page, use UCSD-PROTECTED instead)
 
 ## Table of Contents  
 1. [Package Dependencies](#PackageDependencies)
@@ -63,7 +65,7 @@ git clone https://github.com/js-konda/ece229.git
 pip install -r requirements.txt
 </pre>
 
-3. Download the [dataset](https://github.com/YihengYe/ECE229datatrue/blob/main/baby-names-state.csv) and place unzipped dataset into the client directory
+3. Download the [dataset](https://github.com/YihengYe/ECE229datatrue/blob/main/baby-names-state.csv) and place the dataset into the client directory
 
 3. For Entering the Homepage Dashboard:
 <pre>
